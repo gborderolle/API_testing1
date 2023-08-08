@@ -1,9 +1,18 @@
+using API_testing1.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(routing => routing.LowercaseUrls = true);
+
+
+builder.Services.AddDbContext<ContextDB>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString_apitesting1db")
+    ));
+
 
 var app = builder.Build();
 

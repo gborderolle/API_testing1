@@ -1,8 +1,6 @@
 ﻿using API_testing1.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;  // Para List
-using System.Threading.Tasks;     // Para Task
-using System;                     // Para NotImplementedException
+using API_testing1.Services;
 
 namespace API_testing1.Controllers
 {
@@ -10,6 +8,13 @@ namespace API_testing1.Controllers
     [Route("api/[controller]")]
     public class CustomerController : ControllerBase  // Cambié Controller por ControllerBase
     {
+        private readonly ServiceCustomer _serviceCustomer;
+
+        public CustomerController(ServiceCustomer serviceCustomer)
+        {
+            _serviceCustomer = serviceCustomer;
+        }
+
         [HttpGet]
         public async Task<List<CustomerDTO>> GetCustomers()
         {
@@ -17,9 +22,12 @@ namespace API_testing1.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<CustomerDTO> GetCustomer(long id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CustomerDTO))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCustomer(long id)
         {
-            throw new NotImplementedException();
+            var vacio = new CustomerDTO();
+            return new OkObjectResult(vacio);
         }
 
         [HttpDelete("{id}")]  // Cambiado a HttpDelete
@@ -29,9 +37,11 @@ namespace API_testing1.Controllers
         }
 
         [HttpPost]
-        public async Task<CustomerDTO> CreateCustomer(CreateCustomerDTO customer) // Cambiado el nombre del método
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CustomerDTO))]
+        public async Task<IActionResult> CreateCustomer(CreateCustomerDTO customer) // Cambiado el nombre del método
         {
-            throw new NotImplementedException();
+            CustomerDTO result = await _serviceCustomer.CreateCustomer(customer);
+            return new CreatedResult($"http://localhost:5001/api/customer/{result.Id}", null);
         }
 
         [HttpPut]
