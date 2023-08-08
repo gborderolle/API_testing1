@@ -6,7 +6,7 @@ namespace API_testing1.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CustomerController : ControllerBase  // Cambié Controller por ControllerBase
+    public class CustomerController : ControllerBase 
     {
         private readonly ServiceCustomer _serviceCustomer;
 
@@ -30,7 +30,7 @@ namespace API_testing1.Controllers
             return new OkObjectResult(vacio);
         }
 
-        [HttpDelete("{id}")]  // Cambiado a HttpDelete
+        [HttpDelete("{id}")]
         public async Task<bool> DeleteCustomer(long id)
         {
             throw new NotImplementedException();
@@ -38,7 +38,7 @@ namespace API_testing1.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CustomerDTO))]
-        public async Task<IActionResult> CreateCustomer(CreateCustomerDTO customer) // Cambiado el nombre del método
+        public async Task<IActionResult> CreateCustomer(CreateCustomerDTO customer)
         {
             CustomerDTO result = await _serviceCustomer.CreateCustomer(customer);
             return new CreatedResult($"http://localhost:5001/api/customer/{result.Id}", null);
