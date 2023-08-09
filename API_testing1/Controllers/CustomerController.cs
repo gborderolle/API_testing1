@@ -16,7 +16,8 @@ namespace API_testing1.Controllers
         }
 
         [HttpGet]
-        public async Task<List<CustomerDTO>> GetCustomers()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CustomerDTO))]
+        public async Task<ActionResult> GetCustomers()
         {
             throw new NotImplementedException();
         }
@@ -31,6 +32,7 @@ namespace API_testing1.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CustomerDTO))]
         public async Task<bool> DeleteCustomer(long id)
         {
             throw new NotImplementedException();
@@ -45,6 +47,7 @@ namespace API_testing1.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CustomerDTO))]
         public async Task<CustomerDTO> UpdateCustomer(CustomerDTO customer)
         {
             throw new NotImplementedException();
