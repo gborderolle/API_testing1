@@ -1,7 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using System.Net.Mail;
-using API_testing1.DTOs;
+﻿using API_testing1.DTOs;
 using API_testing1.Models;
 using AutoMapper;
 

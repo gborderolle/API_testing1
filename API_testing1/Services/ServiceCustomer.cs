@@ -15,8 +15,23 @@ namespace API_testing1.Services
 
         internal async Task<CustomerDTO> CreateCustomer(CreateCustomerDTO customer)
         {
-            Customer _customer = await _contextDB.Add(customer);
-            return Utls.mapper.Map<CustomerDTO>(_customer);
+            return await _contextDB.CreateCustomer(customer).Result.ToDTOAsync();
+            //return Utls.mapper.Map<CustomerDTO>(_customer);
+        }
+
+        internal async Task<CustomerDTO> GetCustomer(long id)
+        {
+            return await _contextDB.GetCustomer(id).Result.ToDTOAsync();
+        }
+
+         internal async Task<bool> DeleteCustomer(long id)
+        {           
+            return await _contextDB.DeleteCustomer(id);
+        }
+
+        internal async Task<List<CustomerDTO>> GetCustomers()
+        {
+            return await _contextDB.GetCustomers();
         }
     }
 }

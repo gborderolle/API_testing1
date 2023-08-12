@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using API_testing1.DTOs;
+using API_testing1.Services;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API_testing1.Models
@@ -20,5 +22,15 @@ namespace API_testing1.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+
+        internal async Task<CustomerDTO> ToDTOAsync()
+        {
+            return Utls.mapper.Map<CustomerDTO>(this);
+        }
+
+        internal CustomerDTO ToDTO()
+        {
+            return Utls.mapper.Map<CustomerDTO>(this);
+        }
     }
 }

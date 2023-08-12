@@ -16,10 +16,11 @@ namespace API_testing1.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CustomerDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CustomerDTO>))]
         public async Task<ActionResult> GetCustomers()
         {
-            throw new NotImplementedException();
+            var result = await _serviceCustomer.GetCustomers();
+            return new OkObjectResult(result);
         }
 
         [HttpGet("{id}")]
@@ -27,15 +28,16 @@ namespace API_testing1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCustomer(long id)
         {
-            var vacio = new CustomerDTO();
-            return new OkObjectResult(vacio);
+            CustomerDTO result = await _serviceCustomer.GetCustomer(id);
+            return new OkObjectResult(result);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CustomerDTO))]
-        public async Task<bool> DeleteCustomer(long id)
+        public async Task<IActionResult> DeleteCustomer(long id)
         {
-            throw new NotImplementedException();
+            var result = await _serviceCustomer.DeleteCustomer(id);
+            return new OkObjectResult(result);
         }
 
         [HttpPost]
