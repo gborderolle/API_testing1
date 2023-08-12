@@ -1,4 +1,5 @@
 using API_testing1.Context;
+using API_testing1.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<ContextDB>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString_apitesting1db")
     ));
 
+/* ------------ SERVICES ------------ */
+builder.Services.AddTransient<ServiceCustomer>();
 
 var app = builder.Build();
 

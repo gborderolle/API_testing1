@@ -1,7 +1,7 @@
 //on ready
 document.addEventListener("DOMContentLoaded", init);
 
-const URL_API = "http://localhost:5001/api";
+const URL_API = "https://localhost:5001/api";
 
 
 function init(){
@@ -9,10 +9,12 @@ function init(){
 }
 
 async function search(){
-    var response = fetch(URL_API + "/customer", {
+    var url_final = URL_API + "/customer";
+    console.log(url_final);
+    var response = await fetch(url_final, {
         "method":'GET',
         "headers":{
-            "Content-type":'application/json'
+            "Content-Type":'application/json'
         }
     });
 
