@@ -1,24 +1,41 @@
-//on ready
+// ON_READY
 document.addEventListener("DOMContentLoaded", init);
 
 const URL_API = "https://localhost:5001/api";
 
 
 function init(){
-    search();
+    GetCustomers();
 }
 
-async function search(){
+async function GetCustomers(){
     var url_final = URL_API + "/customer";
     console.log(url_final);
+
+    //debugger;
     var response = await fetch(url_final, {
         "method":'GET',
         "headers":{
             "Content-Type":'application/json'
         }
+    })
+    /*
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(result => {
+        // Maneja tu respuesta aquí
+    })
+    .catch(error => {
+        console.log('There was a problem with the fetch operation:', error.message);
     });
 
-    //debugger;
+    debugger;
+*/
+    if(response != undefined){
     var result = await response.json();
 
     var html = '';
@@ -36,5 +53,6 @@ async function search(){
     }
     
   $("#tableCustomers").append(html);
+}
 }
 
