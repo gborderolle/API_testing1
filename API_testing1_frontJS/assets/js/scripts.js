@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", init);
 
-const URL_API = "https://localhost:5001/api";
+//const URL_API = "https://localhost:5001/api";
+const URL_API = "https://apitesting120230813060147.azurewebsites.net/api";
 let listCustomers = [];
 
 function init() {

@@ -21,9 +21,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(routing => routing.LowercaseUrls = true);
 
-builder.Services.AddDbContext<ContextDB>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString_apitesting1db")
-    ));
+
+bool contextIsLocal = false;
+if (!bool.TryParse(builder.Configuration.GetConnectionString("ConnectionString_isLocal"), out contextIsLocal))
+{
+    contextIsLocal = false;
+}
+
+if (contextIsLocal)
+{
+    builder.Services.AddDbContext<ContextDB>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString_apitesting1db_local")));
+}
+else
+{
+    builder.Services.AddDbContext<ContextDB>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString_apitesting1db_remote")));
+}
+
 
 /* ------------ SERVICES ------------ */
 builder.Services.AddTransient<ServiceCustomer>();
