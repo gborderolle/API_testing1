@@ -14,17 +14,17 @@ namespace API_testing1.Context
 
         public DbSet<Customer> Customer { get; set; }
         
-        public async Task<Customer> CreateCustomer(CreateCustomerDTO entityDTO)
+        public async Task<Customer> CreateCustomer(CreateCustomerDTO customerDTO)
         {
-            Customer entity = new()
+            Customer customer = new()
             {
                 Id = null,
-                Name = entityDTO.Name,
-                Email = entityDTO.Email,
-                Phone = entityDTO.Phone,
-                Address = entityDTO.Address,
+                Name = customerDTO.Name,
+                Email = customerDTO.Email,
+                Phone = customerDTO.Phone,
+                Address = customerDTO.Address,
             };
-            EntityEntry<Customer> response = await Customer.AddAsync(entity);
+            EntityEntry<Customer> response = await Customer.AddAsync(customer);
             await SaveChangesAsync();
             return await GetCustomer(response.Entity.Id ?? throw new InvalidOperationException("No se pudo guardar"));
         }
@@ -52,5 +52,19 @@ namespace API_testing1.Context
             return await Customer.Select(c => c.ToDTO()).ToListAsync();
         }
 
+        internal async Task<bool> UpdateCustomer(CustomerDTO customerDTO)
+        {
+            Customer customer = new()
+            {
+                Id = customerDTO.Id,
+                Name = customerDTO.Name,
+                Email = customerDTO.Email,
+                Phone = customerDTO.Phone,
+                Address = customerDTO.Address,
+            };
+            Customer.Update(customer);
+            await SaveChangesAsync();
+            return true;
+        }
     }
 }

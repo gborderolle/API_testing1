@@ -16,7 +16,6 @@ namespace API_testing1.Services
         internal async Task<CustomerDTO> CreateCustomer(CreateCustomerDTO customer)
         {
             return await _contextDB.CreateCustomer(customer).Result.ToDTOAsync();
-            //return Utls.mapper.Map<CustomerDTO>(_customer);
         }
 
         internal async Task<CustomerDTO> GetCustomer(long id)
@@ -32,6 +31,11 @@ namespace API_testing1.Services
         internal async Task<List<CustomerDTO>> GetCustomers()
         {
             return await _contextDB.GetCustomers();
+        }
+
+        internal async Task<bool> UpdateCustomer(CustomerDTO customer)
+        {
+            return await _contextDB.UpdateCustomer(customer);
         }
     }
 }

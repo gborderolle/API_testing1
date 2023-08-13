@@ -1,9 +1,11 @@
 ﻿using API_testing1.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using API_testing1.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace API_testing1.Controllers
 {
+    [EnableCors("MyAllowSpecificOrigins")]
     [ApiController]
     [Route("api/[controller]")]
     public class CustomerController : ControllerBase 
@@ -50,9 +52,10 @@ namespace API_testing1.Controllers
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CustomerDTO))]
-        public async Task<CustomerDTO> UpdateCustomer(CustomerDTO customer)
+        public async Task<IActionResult> UpdateCustomer(CustomerDTO customer)
         {
-            throw new NotImplementedException();
+            var result = await _serviceCustomer.UpdateCustomer(customer);
+            return new OkObjectResult(result);
         }
     }
 }
