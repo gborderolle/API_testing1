@@ -15,12 +15,10 @@ builder.Services.AddCors(options =>
                       });
 });
 
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(routing => routing.LowercaseUrls = true);
-
 
 bool contextIsLocal = false;
 if (!bool.TryParse(builder.Configuration.GetConnectionString("ConnectionString_isLocal"), out contextIsLocal))
@@ -51,7 +49,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseHttpsRedirection();
 app.UseRouting();
